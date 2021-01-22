@@ -131,6 +131,8 @@ if(!isset($_SESSION['username'])){
         <li> <a href="customers.php"> <i class="fa fa-angle-right"></i> <span>Customers</span></a> </li>
         <li> <a href="contacts.php"> <i class="fa fa-angle-right"></i> <span>Contacts</span></a> </li>        
         <li> <a href="orders.php"> <i class="fa fa-angle-right"></i> <span>Orders</span></a> </li>        
+        <li> <a href="blog.php"> <i class="fa fa-angle-right"></i> <span>Create blog</span></a> </li>        
+        <li> <a href="blogs.php"> <i class="fa fa-angle-right"></i> <span>All blogs</span></a> </li>        
        
       </ul>
       <!-- sidebar-menu --> 

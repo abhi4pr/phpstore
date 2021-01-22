@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2021 at 08:40 AM
+-- Generation Time: Jan 22, 2021 at 02:40 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -43,6 +43,28 @@ INSERT INTO `admins` (`id`, `username`, `password`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `articles`
+--
+
+CREATE TABLE `articles` (
+  `id` int(11) NOT NULL,
+  `aname` varchar(100) NOT NULL,
+  `adesc` varchar(999) NOT NULL,
+  `apicture` varchar(100) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`id`, `aname`, `adesc`, `apicture`, `created_at`) VALUES
+(1, 'blog 1', '<p>Seamlessly orchestrate process-centric best practices with end-to-end catalysts for change. Proactively transform accurate internal or &ldquo;organic&rdquo; sources without team driven infomediaries. Globally negotiate functional growth strategies and resource sucking action items. Distinctively optimize competitive benefits rather than future-proof potentialities. Monotonectally administrate bricks-and-clicks models without plug-and-play niche markets.</p>\r\n\r\n<p>Credibly parallel task bleeding-edge processes via multidisciplinary mindshare. Enthusiastically reintermediate best-of-breed potentialities and next-generation internal or &ldquo;organic&rdquo; sources. Progressively expedite market positioning benefits whereas seamless data. Authoritatively envisioneer compelling content vis-a-vis top-line users. Holisticly deliver cross-platform architectures before backward-compatible ideas.</p>\r\n\r\n<p><img alt=\"\" src=\"https://picsum.photos/seed/picsum/200/300\" /></p>\r\n\r\n<p>Conveniently', '1lREW.jpg', '2021-01-22 13:23:00'),
+(2, 'blog 2', '<h2>What is Lorem Ipsum?</h2>\r\n\r\n<p><strong>Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&#39;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n\r\n<p><img alt=\"\" src=\"https://picsum.photos/id/237/200/300\" /></p>\r\n\r\n<h2>Why do we use it?</h2>\r\n\r\n<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using &#39;Content her', '369334.jpg', '2021-01-22 13:35:40');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cart`
 --
 
@@ -61,7 +83,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `name`, `price`, `picture`, `qty`, `total_price`, `email`) VALUES
-(76, 'lemon tree', 400, 'ABT66DE284B3E0CA767DA2547D7E26A2A7C7836C931EDBC3723D2D01CA6D1E2DC76.jpg', 1, 400, 'ankit@gmail.com');
+(76, 'lemon tree', 400, 'ABT66DE284B3E0CA767DA2547D7E26A2A7C7836C931EDBC3723D2D01CA6D1E2DC76.jpg', 1, 400, 'ankit@gmail.com'),
+(97, 'carrot', 40, 'ABTB927AAE8502559C1F063BE4DBDAA03376F3D46BA7318CBF0E2307E4693032903.jpg', 1, 40, 'ankit@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -192,6 +215,12 @@ ALTER TABLE `admins`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
@@ -238,10 +267,16 @@ ALTER TABLE `admins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `articles`
+--
+ALTER TABLE `articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `categories`
