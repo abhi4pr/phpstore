@@ -17,8 +17,22 @@
         </div>
     </div>
 </nav>
-<!-- breadcrumb-section end -->
-<!-- product tab start -->
+
+  <?php
+
+    include('connect.php');
+    $id = $_GET['id'];
+    
+    $query = "SELECT * FROM `articles` WHERE `id`='".$id."'";
+    $run = mysqli_query($connect,$query);
+      while($row = mysqli_fetch_assoc($run)) {
+          $id = $row["id"];
+          $aname = $row["aname"];
+          $apicture = $row["apicture"];
+          $adesc = $row["adesc"];
+          $created_at = $row["created_at"];
+  } ?>
+
 <section class="blog-section pt-80 pb-80">
     <div class="container">
         <div class="row">
@@ -32,36 +46,16 @@
         <div class="row">
             <div class="col-12 col-xl-9 mx-auto">
                 <div class="single-blog text-left">
-                    <a class="blog-thumb zoom-in d-block overflow-hidden" href="blog-grid-left-sidebar.html">
-                        <img class="object-fit-none" src="assets/img/blog-post/large-blog.jpg" alt="blog-thumb-naile">
+                    <a class="blog-thumb zoom-in d-block overflow-hidden" href="#">
+                        <img class="object-fit-none" src="admin/blogimgs/<?php echo $apicture; ?>" alt="blog-thumb-naile">
                     </a>
                     <div class="blog-post-content pt-30">
-                        <h3 class="title mb-15"><a href="single-blog.html">This is Secound Post For XipBlog</a></h3>
+                        <h3 class="title mb-15"><a href="#"><?php echo $aname; ?></a></h3>
                         <h5 class="sub-title font-style-normal"> Posted by <a class="blog-link"
-                                href="https://themeforest.net/user/hastech">HasTech</a> <span class="separator">/</span>
-                            27 sep, 2020 <span class="separator">/</span> <a class="blog-link"
-                                href="https://themeforest.net/user/hastech">Electronics</a></h5>
+                                href="#">Admin</a> <span class="separator">/</span>
+                            <?php echo $created_at; ?> <span class="separator">/</span></h5>
                         <p class="text">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim adminim veniam, quis nostrud exercitation ullamco
-                            laboris nisi ut aliquip commodo consequat. Duis aute irure dolor in rep
-                            rehenderit. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiumod tempor
-                            incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit, do eiusmod tempor incididunt
-                            ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-                            do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim adminim veniam, quis
-                            nostrud exercitation ullamco laboris
-                            nisi ut aliquip commodo consequat. Duis aute irure dolor in rep rehenderit. Lorem ipsum
-                            dolor sit amet, consectetur adipisicing elit, sed do eiumod tempor incididunt ut labore et
-                            dolore magna aliqua. Lorem ipsum dolor sit
-                            amet, consectetur adipisicing elit, do eiusmod tempor incididunt ut labore et dolore magna
-                            aliqua. Lorem ipsum dolor sit amet, consectetur adipisicing elit, do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua.
-                            Ut enim adminim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commodo
-                            consequat. Duis aute irure dolor in rep rehenderit. Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit, sed do eiumod tempor
-                            incididunt ut labore et dolore magna aliqua.
-
+                            <?php echo $adesc; ?>
                         </p>
                     </div>
                 </div>
@@ -69,28 +63,15 @@
                 <div class="comment-section">
                     <div class="comment-list">
                         <h3 class="title">All comments </h3>
-                        <img class="avatar" src="assets/img/blog-post/avatar.jpg" alt="avatar">
                         <h4 class="sub-title">avatar</h4>
                         <span>27 sep, 2020 </span>
-                        <button class="reply">Reply</button>
                         <p>Ev kullanımı için en uygun HP Orjinal Ucuz Kartuşlar artık avatar.com adresinde 7/24 aktif
                             şipariş hattımız ile her zaman Orijinal Kartuş alabilir ve bayilik fırsatlarımız ile her
                             zaman %50 İndirimli alabilirsiniz. Sarf Depo
                             olarak her zaman müşteri desteğimiz en ön plandadır.Her zaman canlı destek yada whatsapp
                             hattımızdan yazmayı unutmayınız. www.avatar.com </p>
                     </div>
-                    <div class="comment-list">
-                        <h3 class="title">All comments </h3>
-                        <img class="avatar" src="assets/img/blog-post/avatar.jpg" alt="avatar">
-                        <h4 class="sub-title">avatar</h4>
-                        <span>27 sep, 2020 </span>
-                        <button class="reply">Reply</button>
-                        <p>Ev kullanımı için en uygun HP Orjinal Ucuz Kartuşlar artık avatar.com adresinde 7/24 aktif
-                            şipariş hattımız ile her zaman Orijinal Kartuş alabilir ve bayilik fırsatlarımız ile her
-                            zaman %50 İndirimli alabilirsiniz. Sarf Depo
-                            olarak her zaman müşteri desteğimiz en ön plandadır.Her zaman canlı destek yada whatsapp
-                            hattımızdan yazmayı unutmayınız. www.avatar.com </p>
-                    </div>
+                    
                 </div>
                 <!-- comment-section start -->
                 <!-- contact-form start -->
@@ -100,18 +81,6 @@
                         <div class="form-group">
                             <label for="name">your name</label>
                             <input type="text" class="form-control" id="name" required="">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Your Email:</label>
-                            <input type="email" class="form-control" id="email" required="">
-                        </div>
-                        <div class="form-group">
-                            <label for="url">Website Url:</label>
-                            <input type="text" class="form-control" id="url" required="">
-                        </div>
-                        <div class="form-group">
-                            <label for="subject">Subject:</label>
-                            <input type="text" class="form-control" id="subject" required="">
                         </div>
                         <div class="form-group">
                             <label for="comment">Comment:</label>

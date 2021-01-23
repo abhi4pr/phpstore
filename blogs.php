@@ -23,248 +23,33 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
+               <?php 
+                include('connect.php');
+                 $raw_results = mysqli_query($connect,"SELECT * FROM articles LIMIT 40");
+                if(mysqli_num_rows($raw_results) > 0){ ?>   
                 <div class="row">
+                   <?php  while($results = mysqli_fetch_array($raw_results)){  ?>  
                     <div class="col-12 col-md-6 col-xl-4 mb-30">
                         <div class="single-blog text-left">
                             <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/1.jpg" alt="blog-thumb-naile">
+                                href="single-blog.php?id=<?php echo $results['id']; ?>">
+                                <img src="admin/blogimgs/<?php echo $results['apicture']; ?>" alt="blog-thumb-naile">
                             </a>
                             <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
+                                <h5 class="sub-title"> Posted by <a class="blog-link" href="#">Admin</a> <span
+                                        class="separator">/</span> <?php echo $results['created_at']; ?></h5>
+                                <h3 class="title mb-15"><a href="single-blog.php?id=<?php echo $results['id']; ?>"><?php echo $results['aname']; ?></a>
                                 </h3>
                                 <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
+                                    <?php echo substr($results['adesc'],0,40); ?>
                                 </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
+                                <a class="read-more" href="single-blog.php?id=<?php echo $results['id']; ?>">Read More</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/2.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020 </h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/3.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/2.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/3.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/1.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/3.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/1.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/2.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/1.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/3.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6 col-xl-4 mb-30">
-                        <div class="single-blog text-left">
-                            <a class="blog-thumb mb-20 zoom-in d-block overflow-hidden"
-                                href="blog-grid-left-sidebar.html">
-                                <img src="assets/img/blog-post/1.jpg" alt="blog-thumb-naile">
-                            </a>
-                            <div class="blog-post-content">
-                                <h5 class="sub-title"> Posted by <a class="blog-link"
-                                        href="https://themeforest.net/user/hastech">HasTech</a> <span
-                                        class="separator">/</span> 27 sep, 2020</h5>
-                                <h3 class="title mb-15"><a href="single-blog.php">This is first Post For XipBlog</a>
-                                </h3>
-                                <p class="text">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-                                    Ipsum has been the industrys standard dummy text ever since the 1500s, when ...
-                                </p>
-                                <a class="read-more" href="single-blog.php">Read More</a>
-                            </div>
-                        </div>
-                    </div>
+                  <?php } ?>  
                 </div>
+            <?php } ?>
             </div>
             <div class="col-lg-3 mb-30 order-lg-first">
                 <aside class="blog-left-sidebar">
