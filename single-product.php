@@ -28,6 +28,8 @@
               $pro_desc = $row["description"];
               $pro_price = $row["price"];
               $pro_image = $row["picture"];
+              $pgallery = $row["pgallery"]; // gallery images
+              $final = unserialize($pgallery); // gallery images
       } ?>
 
 <section class="product-single theme3 pt-60">
@@ -43,35 +45,49 @@
                             <img src="admin/productimgs/<?php echo $pro_image; ?>" alt="product-thumb">
                         </div>
                     </div>
-                    
+                    <!-- single-product end -->
+                    <div class="single-product">
+                        <div class="product-thumb">
+                            <img src="admin/productimgs/<?php echo $final[0]; ?>" alt="product-thumb">
+                        </div>
+                    </div>
+                    <!-- single-product end -->
+                    <div class="single-product">
+                        <div class="product-thumb">
+                            <img src="admin/productimgs/<?php echo $final[1]; ?>" alt="product-thumb">
+                        </div>
+                    </div>
+                    <!-- single-product end -->
+                    <div class="single-product">
+                        <div class="product-thumb">
+                            <img src="admin/productimgs/<?php echo $final[2]; ?>" alt="product-thumb">
+                        </div>
+                    </div>
+                    <!-- single-product end -->
                 </div>
 
                 <div class="product-sync-nav single-product">
                     <div class="single-product">
                         <div class="product-thumb">
-                            <a href="javascript:void(0)"> <img src="assets/img/single-product/1.2x.jpg"
-                                    alt="product-thumb"></a>
+                            <a href="javascript:void(0)"> <img src="admin/productimgs/<?php echo $pro_image; ?>"></a>
                         </div>
                     </div>
                     <!-- single-product end -->
                     <div class="single-product">
                         <div class="product-thumb">
-                            <a href="javascript:void(0)"> <img src="assets/img/single-product/2.2x.jpg"
-                                    alt="product-thumb"></a>
+                            <a href="javascript:void(0)"> <img src="admin/productimgs/<?php echo $final[0]; ?>"></a>
                         </div>
                     </div>
                     <!-- single-product end -->
                     <div class="single-product">
                         <div class="product-thumb">
-                            <a href="javascript:void(0)"><img src="assets/img/single-product/3.2x.jpg"
-                                    alt="product-thumb"></a>
+                            <a href="javascript:void(0)"><img src="admin/productimgs/<?php echo $final[1]; ?>"></a>
                         </div>
                     </div>
                     <!-- single-product end -->
                     <div class="single-product">
                         <div class="product-thumb">
-                            <a href="javascript:void(0)"><img src="assets/img/single-product/4.2x.jpg"
-                                    alt="product-thumb"></a>
+                            <a href="javascript:void(0)"><img src="admin/productimgs/<?php echo $final[2]; ?>"></a>
                         </div>
                     </div>
                     <!-- single-product end -->
