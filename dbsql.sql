@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 22, 2021 at 02:40 PM
+-- Generation Time: Jan 23, 2021 at 01:36 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -190,6 +190,7 @@ CREATE TABLE `products` (
   `name` varchar(100) NOT NULL,
   `price` int(11) NOT NULL,
   `picture` varchar(100) DEFAULT NULL,
+  `pgallery` varchar(250) NOT NULL,
   `description` mediumtext NOT NULL,
   `cname` varchar(25) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -199,10 +200,11 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `price`, `picture`, `description`, `cname`, `created_at`) VALUES
-(1, 'lemon tree', 400, 'ABT66DE284B3E0CA767DA2547D7E26A2A7C7836C931EDBC3723D2D01CA6D1E2DC76.jpg', 'this is good tshirt', 'tshirts', '2021-01-18 05:45:27'),
-(2, 'carrot', 40, 'ABTB927AAE8502559C1F063BE4DBDAA03376F3D46BA7318CBF0E2307E4693032903.jpg', 'this is a fruitety fruits', 'vegetables', '2021-01-18 06:01:46'),
-(3, 'TV', 5000, 'ABTD86114310C5236F0A4A31368F33E431EBFCC0CDE194AD876431C05C40F597EB8.jpg', 'tv is smart and ', 'electronics', '2021-01-19 10:00:23');
+INSERT INTO `products` (`id`, `name`, `price`, `picture`, `pgallery`, `description`, `cname`, `created_at`) VALUES
+(1, 'lemon tree', 400, 'ABT66DE284B3E0CA767DA2547D7E26A2A7C7836C931EDBC3723D2D01CA6D1E2DC76.jpg', '', 'this is good tshirt', 'tshirts', '2021-01-18 05:45:27'),
+(2, 'carrot', 40, 'ABTB927AAE8502559C1F063BE4DBDAA03376F3D46BA7318CBF0E2307E4693032903.jpg', '', 'this is a fruitety fruits', 'vegetables', '2021-01-18 06:01:46'),
+(3, 'TV', 5000, 'ABTD86114310C5236F0A4A31368F33E431EBFCC0CDE194AD876431C05C40F597EB8.jpg', '', 'tv is smart and ', 'electronics', '2021-01-19 10:00:23'),
+(9, 'wah', 144, 'rozhok new stopage of enemy.png', 'a:3:{i:0;s:18:\"blue sky ocean.jpg\";i:1;s:17:\"evening field.jpg\";i:2;s:20:\"Screenshot (262).png\";}', 'this is lorem ipsum', 'tshirts', '2021-01-23 09:46:08');
 
 --
 -- Indexes for dumped tables
@@ -306,7 +308,7 @@ ALTER TABLE `orders`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
