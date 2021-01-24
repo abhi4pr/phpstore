@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 23, 2021 at 01:36 PM
+-- Generation Time: Jan 24, 2021 at 10:00 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -206,6 +206,29 @@ INSERT INTO `products` (`id`, `name`, `price`, `picture`, `pgallery`, `descripti
 (3, 'TV', 5000, 'ABTD86114310C5236F0A4A31368F33E431EBFCC0CDE194AD876431C05C40F597EB8.jpg', '', 'tv is smart and ', 'electronics', '2021-01-19 10:00:23'),
 (9, 'wah', 144, 'rozhok new stopage of enemy.png', 'a:3:{i:0;s:18:\"blue sky ocean.jpg\";i:1;s:17:\"evening field.jpg\";i:2;s:20:\"Screenshot (262).png\";}', 'this is lorem ipsum', 'tshirts', '2021-01-23 09:46:08');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rating_review`
+--
+
+CREATE TABLE `rating_review` (
+  `id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `rating` float NOT NULL,
+  `review` varchar(250) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rating_review`
+--
+
+INSERT INTO `rating_review` (`id`, `prod_id`, `email`, `rating`, `review`, `created_at`) VALUES
+(3, 1, 'ankit@gmail.com', 2.5, 'this is my sample review for this product', '2021-01-24 07:53:22'),
+(4, 3, 'prince@gmail.com', 3, 'this is demo review', '2021-01-24 08:51:54');
+
 --
 -- Indexes for dumped tables
 --
@@ -259,6 +282,12 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `rating_review`
+--
+ALTER TABLE `rating_review`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -309,6 +338,12 @@ ALTER TABLE `orders`
 --
 ALTER TABLE `products`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `rating_review`
+--
+ALTER TABLE `rating_review`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

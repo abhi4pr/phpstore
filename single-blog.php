@@ -60,36 +60,7 @@
                     </div>
                 </div>
                 <!-- comment-section start -->
-                <div class="comment-section">
-                    <div class="comment-list">
-                        <h3 class="title">All comments </h3>
-                        <h4 class="sub-title">avatar</h4>
-                        <span>27 sep, 2020 </span>
-                        <p>Ev kullanımı için en uygun HP Orjinal Ucuz Kartuşlar artık avatar.com adresinde 7/24 aktif
-                            şipariş hattımız ile her zaman Orijinal Kartuş alabilir ve bayilik fırsatlarımız ile her
-                            zaman %50 İndirimli alabilirsiniz. Sarf Depo
-                            olarak her zaman müşteri desteğimiz en ön plandadır.Her zaman canlı destek yada whatsapp
-                            hattımızdan yazmayı unutmayınız. www.avatar.com </p>
-                    </div>
-                    
-                </div>
-                <!-- comment-section start -->
-                <!-- contact-form start -->
-                <div class="contact-form">
-                    <h3 class="title">Leave a Reply</h3>
-                    <form>
-                        <div class="form-group">
-                            <label for="name">your name</label>
-                            <input type="text" class="form-control" id="name" required="">
-                        </div>
-                        <div class="form-group">
-                            <label for="comment">Comment:</label>
-                            <textarea class="form-control mb-30" id="comment" required=""></textarea>
-                        </div>
-                        <button type="submit" class="btn theme-btn--dark1 btn--lg">Submit Button</button>
-                    </form>
-                </div>
-                <!-- contact-form start -->
+                
             </div>
         </div>
     </div>

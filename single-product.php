@@ -201,31 +201,65 @@
                     <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                         <div class="single-product-desc">
                             <div class="grade-content">
-                                <span class="grade">Grade </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <h6 class="sub-title">test</h6>
-                                <p>23/09/2020</p>
-                                <h4 class="title">test</h4>
-                                <p>test</p>
+                                     <?php
+                                        include('connect.php');
+                                        $id = $_GET['id'];
+
+                                        error_reporting(0);
+                                        
+                                        $query = "SELECT * FROM `rating_review` WHERE `prod_id`='".$id."'";
+                                        $run = mysqli_query($connect,$query);
+                                          while($row = mysqli_fetch_assoc($run)) {
+                                              $email = $row["email"];
+                                              $rating = $row["rating"];
+                                              $review = $row["review"];
+                                              $created_at = $row["created_at"];
+                                      } 
+
+                                        for( $x = 0; $x < 5; $x++ )
+                                        {
+                                            if( floatval( $rating )-$x >= 1 )
+                                            { echo '<li style="display:inline;"><i class="fa fa-star"></i></li>'; }
+                                            elseif( $rating-$x > 0 )
+                                            { echo '<li style="display:inline;"><i class="fa fa-star-half"></i></li>'; }
+                                            else
+                                            { echo ''; }
+                                        }
+                                      ?>
+
+                                <h6 class="sub-title"><?php echo $email; ?></h6>
+                                <p><?php echo $created_at; ?></p>
+                                <h4 class="title"><?php echo $review; ?></h4>
+
                             </div>
                             <hr class="hr">
                             <div class="grade-content">
-                                <span class="grade">Grade </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <span class="star-on"><i class="ion-ios-star"></i> </span>
-                                <h6 class="sub-title">Hastheme</h6>
-                                <p>23/09/2020</p>
-                                <h4 class="title">demo</h4>
-                                <p>ok !</p>
-                                <a href="#" class="btn theme-btn--dark3 theme-btn--dark3-sm btn--sm rounded-5 mt-15"
-                                    data-toggle="modal" data-target="#exampleModalCenter">Write your review !</a>
+                                <div class="contact-form">
+                                    <h3 class="title">Leave a Reply</h3>
+                                    <form action="" method="POST">
+                                        <div class="form-group">
+                                            <label for="name">your name</label>                                       
+                                            <input type="text" class="form-control" value="<?php echo $_SESSION['email']; ?>" required="" name="email">                                      
+                                        </div>
+                                        <div class="form-group">
+                                           <div class="rateyo" id="rating"
+                                             data-rateyo-rating="4"
+                                             data-rateyo-num-stars="5"
+                                             data-rateyo-score="3">
+                                           </div>
+                                           <input type="hidden" name="rating">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="comment">Comment:</label>
+                                                <textarea class="form-control mb-30" name="review" required=""></textarea> 
+                                        </div>
+                                        <?php if(!isset($_SESSION['email'])){ ?>
+                                        <a href="login.php" class="btn theme-btn--dark3 btn--xl mt-5 mt-sm-0 rounded-5">Please login to comment !</a>
+                                         <?php } else { ?>
+                                          <input type="submit" name="Sreview" value="Submit review" class="">
+                                         <?php } ?>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -320,3 +354,42 @@
 
 <!-- new arrival section end -->
 <?php include("footer.php"); ?>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+
+<script type="text/javascript"> 
+
+    $(function () {
+      $(".rateyo").rateYo({
+        halfStar: true
+      });
+    });
+ 
+    $(function () {
+        $(".rateyo").rateYo().on("rateyo.change", function (e, data) {
+            var rating = data.rating;
+            $(this).parent().find('.score').text('score :'+ $(this).attr('data-rateyo-score'));
+            $(this).parent().find('.result').text('rating :'+ rating);
+            $(this).parent().find('input[name=rating]').val(rating); //add rating value to input field
+        });
+    });
+ 
+</script>
+
+<?php
+
+    include('connect.php');
+    $id = $_GET['id'];
+
+    if(isset($_POST['Sreview'])){
+
+        $prod_id = $id;
+        $email = $_POST['email'];
+        $rating = $_POST['rating'];
+        $review = $_POST['review'];
+
+        $sql = "INSERT into rating_review(prod_id,email,rating,review) VALUES('$id','".$_SESSION['email']."','$rating','$review')";
+        $run = mysqli_query($connect,$sql);
+    }
+?>

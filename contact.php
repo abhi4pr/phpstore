@@ -79,13 +79,6 @@
                     <h3 class="contact-page-title">Tell Us Your Message</h3>
                     <div class="contact-form">
 
-                        <?php //if (isset($_SESSION['success_message']) && !empty($_SESSION['success_message'])) { ?>
-                            <!-- <div class="success-message" style="margin-bottom: 20px;font-size: 20px;color: green;"><?php //echo $_SESSION['success_message']; ?></div> -->
-                            <?php
-                            //unset($_SESSION['success_message']);
-                        // }
-                        ?>
-
                         <form id="contact-form" action="#" method="POST">
                             <div class="form-group">
                                 <label>Your Name <span class="required">*</span></label>
@@ -133,9 +126,5 @@
 
         $sql = "INSERT into contact(name,email,cnumber,msg) VALUES('$name','$email','$cnumber','$msg')";
         $run = mysqli_query($connect,$sql);
-
-        // session_start();
-        // $_SESSION['success_message'] = "Contact form saved successfully.";
-        // exit();
     }
 ?>
