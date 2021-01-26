@@ -19,7 +19,7 @@ include("header.php"); ?>
             </div>
             <div class="col-12">
                 <ol class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">cart</li>
                 </ol>
             </div>
@@ -43,7 +43,7 @@ include("header.php"); ?>
                                 <th class="text-center" scope="col">Price</th>
                                 <th class="text-center" scope="col">Quantity</th>
                                 <th class="text-center" scope="col">Total price</th>
-                                <th class="text-center" scope="col"><a href="action.php?clear=all" class="badge-danger badge" onclick="return confirm('Are you want to clear ?');"><i class="fas fa-trash-alt"></i></a></th>
+                                <th class="text-center" scope="col"><a href="manage_cart.php?clear=all" class="badge-danger badge" onclick="return confirm('Are you want to clear ?');"><i class="fas fa-trash-alt"></i></a></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -64,18 +64,18 @@ include("header.php"); ?>
                             ?>     
                             <tr> 
                               <td class="text-center"><?php echo $id; ?></td> 
-                              <input type="hidden" class="pid" value="<?php echo $id; ?>">
-                              <td class="text-center"><img src="admin/productimgs/<?php echo $pro_image; ?>" style="height:100px; width:100px;"></td> 
                               <td class="text-center"><?php echo $product_name; ?></td> 
+                              <td class="text-center"><img src="admin/productimgs/<?php echo $pro_image; ?>" style="height:100px; width:100px;"></td> 
                               <td class="text-center"><?php echo $pro_price; ?></td> 
+                              <td class="text-center"><input type="number" class="form-control itemQty" value="<?php echo $pro_qty; ?>" style="width:100px;"></td>                               
+                              <td class="text-center"><?php echo $pro_total; ?></td>                               
+                              <td class="text-center"><a href="manage_cart.php?remove=<?php echo $id; ?>" onclick="return confirm('Are you want to clear ?');"><i class="fas  fa-trash-alt"></i></a></td>
+
+                              <input type="hidden" class="pid" value="<?php echo $id; ?>">
                               <input type="hidden" class="pprice" value="<?php echo $pro_price; ?>">
-                              <td class="text-center"><input type="number" class="form-control itemQty" value="<?php echo $pro_qty; ?>" style="width:100px;"></td> 
-                              <td class="text-center"><?php echo $pro_total; ?></td> 
-                              <td class="text-center"><a href="action.php?remove=<?php echo $id; ?>" onclick="return confirm('Are you want to clear ?');"><i class="fas  fa-trash-alt"></i></a></td>
+                              <?php $grand_total += $pro_total; ?>
                             </tr>  
-                            <?php $grand_total += $pro_total; ?>
-                            <?php } ?>
-                                                           
+                            <?php } ?>                                                           
                         </tbody>
                     </table>                    
                 </div>
@@ -102,28 +102,23 @@ include("header.php"); ?>
 
 <script type="text/javascript">
   $(document).ready(function() {
+    $(".itemQty").on("change", function() {
+      var hide = $(this).closest("tr");
 
-    // Change the item quantity
-    $(".itemQty").on('change', function() {
-      var $el = $(this).closest('tr');
-
-      var pid = $el.find(".pid").val();
-      var pprice = $el.find(".pprice").val();
-      var qty = $el.find(".itemQty").val();
-      //location.reload(true);
+      var id = hide.find(".pid").val();
+      var price = hide.find(".pprice").val();
+      var qty = hide.find(".itemQty").val();
+      location.reload(true);
       $.ajax({
-        url: 'action.php',
+        url: 'manage_cart.php',
         method: 'post',
         cache: false,
-        data: { qty:qty,pid:pid,pprice:pprice },
+        data: { pqty:qty, pid:id, pprice:price },
         success: function(response) {
-          //console.log(response);
-          window.location = 'cart.php';
-          window.location = 'cart.php';
+          console.log(response);
         }
       });
     });
-
   });
 </script>
 

@@ -1,5 +1,14 @@
-<?php include("header.php"); ?>
-<!-- breadcrumb-section start -->
+<?php
+session_start();
+if(!isset($_SESSION['email'])){
+  header("location: login.php");
+} else {
+?>
+
+<?php 
+ error_reporting(0);
+ include("header.php");
+?>
 
 <?php
     include('connect.php');
@@ -94,18 +103,20 @@
 <script type="text/javascript">
   $(document).ready(function() {
 
-    // insert purchase in table
     $("#placeOrder").submit(function(e){
         e.preventDefault();
         $.ajax({
-            url: 'action.php',
+            url: 'manage_cart.php',
             method: 'POST',
-            data: $('form').serialize() + "&action=order",
+            data: $("form").serialize() + "&action=order",
             success: function(response){
-                $("#order").html(response);
+               alert('Ordered Successfully !');
+               window.location.replace("http://localhost/phpstore/myaccount.php");
             }
         });
     });
 
   });
 </script>
+
+<?php } ?>

@@ -21,13 +21,14 @@
 <!-- breadcrumb-section end -->
 <!-- product tab start -->
 <div class="product-tab bg-white pt-80 pb-80">
-    <div class="container">
-        
+    <div id="message"></div>
+
+    <div class="container">        
         <!-- product-tab-nav end -->
         <div class="tab-content" id="pills-tabContent">
             <!-- first tab-pane -->
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-              <div id="message"></div>
+              <!-- <div id="message"></div> -->
               <?php 
                 include('connect.php');
                  $raw_results = mysqli_query($connect,"SELECT * FROM products LIMIT 40");
@@ -70,13 +71,14 @@
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="product-price">Rs. <?php echo $results['price']; ?></h6>
-                                        <form action="" class="form-submit">
+                                        <form class="form-submit">
                                             <input type="hidden" class="pid" value="<?php echo $results['id']; ?>">
-                                            <input type="hidden" class="pname" value="<?php echo $results['name'];?>">
-                                            <input type="hidden" class="pprice" value="<?php echo $results['price'];?>">
-                                            <input type="hidden" class="pimage" value="<?php echo $results['picture'];?>">
-                                            <button class="pro-btn addItemBtn"><i class="icon-basket"></i></a></button>
-                                        </form>    
+                                            <input type="hidden" class="pname" value="<?php echo $results['name']; ?>">
+                                            <input type="hidden" class="pprice" value="<?php echo $results['price']; ?>">
+                                            <input type="hidden" class="pimage" value="<?php echo $results['picture']; ?>">
+                                            <button id="addItem" class="pro-btn"><i class="icon-basket"></i></button>
+                                        </form>
+                                                                                       
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +97,7 @@
                             <ul class="d-flex">
                                 
                             </ul>
-                        </div>
+                </div>
             </div>
         </div>
     </div>
@@ -103,39 +105,3 @@
 <!-- product tab end -->
 <!-- footer strat -->
 <?php include("footer.php"); ?>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(".addItemBtn").click(function(e){
-          e.preventDefault();
-          var $form = $(this).closest(".form-submit");
-          var pid = $form.find(".pid").val();
-          var pname = $form.find(".pname").val();
-          var pprice = $form.find(".pprice").val();
-          var pimage = $form.find(".pimage").val();
-          //var pqty = $form.find(".pqty").val();
-          $.ajax({
-            url: 'action.php',
-            method: 'POST',
-            data: {pid:pid,pname:pname,pprice:pprice,pimage:pimage},
-            success: function(response){
-                $("#message").html(response);
-                window.scrollTo(0,0);
-                load_cart_item_number();
-            }
-          });
-        });
-          
-          load_cart_item_number();
-          function load_cart_item_number(){
-            $.ajax({
-                url:'action.php',
-                method:'get',
-                data: {cartItem:'cart_item'},
-                success: function(response){
-                    $('#cart-item').html(response);
-                }
-            });
-          }
-    });
-</script>

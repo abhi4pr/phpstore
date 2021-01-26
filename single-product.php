@@ -33,6 +33,7 @@
       } ?>
 
 <section class="product-single theme3 pt-60">
+    <div id="message"></div>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 mb-5 mb-lg-0">
@@ -120,20 +121,20 @@
                     <div class="product-footer">
                         <div class="product-count style d-flex flex-column flex-sm-row mt-30 mb-30">
                             <div class="count d-flex">
-                                <input type="number" min="1" max="10" step="1" value="1">
+                                <input type="number" id="qty" name="qty" min="1" max="10" step="1" value="1">
                                 <div class="button-group">
                                     <button class="count-btn increment"><i class="fas fa-chevron-up"></i></button>
                                     <button class="count-btn decrement"><i class="fas fa-chevron-down"></i></button>
                                 </div>
                             </div>
                             <div>
-                                <!-- <form action="" class="form-submit">
-                                    <input type="hidden" class="pid" value="<?php echo $results['id']; ?>">
-                                    <input type="hidden" class="pname" value="<?php echo $results['name'];?>">
-                                    <input type="hidden" class="pprice" value="<?php echo $results['price'];?>">
-                                    <input type="hidden" class="pimage" value="<?php echo $results['picture'];?>"> -->
-                                    <a href="#" class="btn theme-btn--dark3 btn--xl mt-5 mt-sm-0 rounded-5 addItemBtn">Add to cart</a>
-                                <!-- </form>   -->
+                                <form class="form-submit">
+                                    <input type="hidden" class="pid" value="<?php echo $id; ?>">
+                                    <input type="hidden" class="pname" value="<?php echo $product_name; ?>">
+                                    <input type="hidden" class="pprice" value="<?php echo $pro_price; ?>">
+                                    <input type="hidden" class="pimage" value="<?php echo $pro_image; ?>">
+                                    <button id="addItem" class="btn theme-btn--dark3 btn--xl mt-5 mt-sm-0 rounded-5">Add to cart</button>
+                                </form>
                             </div>
                         </div>
                         <div class="addto-whish-list">
@@ -328,13 +329,13 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h6 class="product-price">Rs. <?php echo $results['price']; ?></h6>
-                                                <form action="" class="form-submit">
+                                                <form class="form-submit">
                                                     <input type="hidden" class="pid" value="<?php echo $results['id']; ?>">
-                                                    <input type="hidden" class="pname" value="<?php echo $results['name'];?>">
-                                                    <input type="hidden" class="pprice" value="<?php echo $results['price'];?>">
-                                                    <input type="hidden" class="pimage" value="<?php echo $results['picture'];?>">
-                                                    <button class="pro-btn addItemBtn"><i class="icon-basket"></i></a></button>
-                                                </form>  
+                                                    <input type="hidden" class="pname" value="<?php echo $results['name']; ?>">
+                                                    <input type="hidden" class="pprice" value="<?php echo $results['price']; ?>">
+                                                    <input type="hidden" class="pimage" value="<?php echo $results['picture']; ?>">
+                                                    <button id="addItem" class="pro-btn"><i class="icon-basket"></i></button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

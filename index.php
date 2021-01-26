@@ -152,13 +152,13 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between">
                                             <h6 class="product-price">Rs. <?php echo $results['price']; ?></h6>
-                                            <form action="" class="form-submit">
+                                            <form class="form-submit">
                                                 <input type="hidden" class="pid" value="<?php echo $results['id']; ?>">
-                                                <input type="hidden" class="pname" value="<?php echo $results['name'];?>">
-                                                <input type="hidden" class="pprice" value="<?php echo $results['price'];?>">
-                                                <input type="hidden" class="pimage" value="<?php echo $results['picture'];?>">
-                                                <button class="pro-btn addItemBtn"><i class="icon-basket"></i></a></button>
-                                            </form>  
+                                                <input type="hidden" class="pname" value="<?php echo $results['name']; ?>">
+                                                <input type="hidden" class="pprice" value="<?php echo $results['price']; ?>">
+                                                <input type="hidden" class="pimage" value="<?php echo $results['picture']; ?>">
+                                                <button id="addItem" class="pro-btn"><i class="icon-basket"></i></button>
+                                            </form> 
                                         </div>
                                     </div>
                                 </div>
