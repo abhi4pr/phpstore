@@ -55,6 +55,12 @@ if(!isset($_SESSION['email'])){
 </nav>
 <!-- breadcrumb-section end -->
 <!-- product tab start -->
+
+<?php
+include_once 'config.php'; 
+ include_once 'connect.php'; 
+?>
+
 <section class="check-out-section pt-80 pb-50">
     <div class="container">
         <div class="row justify-content-center">
@@ -93,6 +99,29 @@ if(!isset($_SESSION['email'])){
                         <input type="submit" name="submit" value="Place order" class="btn btn-danger btn-block">
                     </div>
                 </form>
+
+                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                    <input type="hidden" name="business" value="abhibusiness@gmail.com">
+                    <input type="hidden" name="cmd" value="_cart">   
+                    <input type="hidden" name="upload" value="1">
+                    <?php 
+                        $x=0;
+                        $sql = "SELECT * from cart WHERE email='".$_SESSION['email']."'";
+                        $run = mysqli_query($connect,$sql);
+                         while($row = mysqli_fetch_array($run)){
+                            $x++;
+                          echo '<input type="hidden" name="item_name_'.$x.'" value="'.$row["name"].'">
+                                <input type="hidden" name="item_number_'.$x.'" value="'.$x.'">
+                                <input type="hidden" name="amount_'.$x.'" value="'.$row["price"].'">
+                                <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';  
+                         }
+                    ?>
+                    <input type="hidden" name="currency_code" value="USD">
+                    <input type="hidden" name="return" value="http://localhost/phpstore/success.php">
+                    <input type="hidden" name="cancel_return" value="http://localhost/phpstore/cancel.php">
+                    <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif">
+                </form>
+            
             </div>
         </div>
     </div>
