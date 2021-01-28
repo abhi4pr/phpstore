@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 24, 2021 at 10:00 AM
+-- Generation Time: Jan 28, 2021 at 07:52 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -83,8 +83,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `name`, `price`, `picture`, `qty`, `total_price`, `email`) VALUES
-(76, 'lemon tree', 400, 'ABT66DE284B3E0CA767DA2547D7E26A2A7C7836C931EDBC3723D2D01CA6D1E2DC76.jpg', 1, 400, 'ankit@gmail.com'),
-(97, 'carrot', 40, 'ABTB927AAE8502559C1F063BE4DBDAA03376F3D46BA7318CBF0E2307E4693032903.jpg', 1, 40, 'ankit@gmail.com');
+(97, 'carrot', 40, 'ABTB927AAE8502559C1F063BE4DBDAA03376F3D46BA7318CBF0E2307E4693032903.jpg', 2, 80, 'ankit@gmail.com'),
+(103, 'lemon tree', 400, 'ABT66DE284B3E0CA767DA2547D7E26A2A7C7836C931EDBC3723D2D01CA6D1E2DC76.jpg', 1, 400, 'ankit@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -106,6 +106,30 @@ INSERT INTO `categories` (`id`, `cname`, `created_at`) VALUES
 (1, 'vegetables', '2021-01-18 02:54:23'),
 (2, 'tshirts', '2021-01-18 05:59:10'),
 (3, 'electronics', '2021-01-19 09:57:53');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chatbot_hints`
+--
+
+CREATE TABLE `chatbot_hints` (
+  `id` int(11) NOT NULL,
+  `question` varchar(100) NOT NULL,
+  `reply` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `chatbot_hints`
+--
+
+INSERT INTO `chatbot_hints` (`id`, `question`, `reply`) VALUES
+(1, 'HI||Hello||Hola', 'Hello, how are you.'),
+(2, 'How are you', 'I am fine, thank you'),
+(3, 'what is your name||whats your name', 'My name ChatBot'),
+(4, 'what should I call you', 'You can call me ChatBot'),
+(5, 'Where are your from', 'I am from PHP code'),
+(6, 'Bye||See you later||Have a Good Day', 'Sad to see you are going. Have a nice day');
 
 -- --------------------------------------------------------
 
@@ -177,7 +201,37 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `username`, `email`, `number`, `address`, `pmode`, `products`, `grand_total`) VALUES
-(5, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'netbanking', 'carrot(2), lemon tree(1)', 480);
+(5, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'netbanking', 'carrot(2), lemon tree(1)', 480),
+(6, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'cod', 'carrot(1), lemon tree(1)', 440);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `payment_id` int(11) NOT NULL,
+  `item_number` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `quantity` int(5) NOT NULL,
+  `gross_amount` float(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `payment_id` int(11) NOT NULL,
+  `txn_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `payment_gross` float(10,2) NOT NULL,
+  `currency_code` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
+  `payment_status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `payer_email` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -227,7 +281,7 @@ CREATE TABLE `rating_review` (
 
 INSERT INTO `rating_review` (`id`, `prod_id`, `email`, `rating`, `review`, `created_at`) VALUES
 (3, 1, 'ankit@gmail.com', 2.5, 'this is my sample review for this product', '2021-01-24 07:53:22'),
-(4, 3, 'prince@gmail.com', 3, 'this is demo review', '2021-01-24 08:51:54');
+(4, 3, 'prince@gmail.com', 3, 'this is my demo review', '2021-01-24 08:51:54');
 
 --
 -- Indexes for dumped tables
@@ -258,6 +312,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `chatbot_hints`
+--
+ALTER TABLE `chatbot_hints`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `contact`
 --
 ALTER TABLE `contact`
@@ -274,6 +334,19 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `payment_id` (`payment_id`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`payment_id`);
 
 --
 -- Indexes for table `products`
@@ -307,13 +380,19 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `chatbot_hints`
+--
+ALTER TABLE `chatbot_hints`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -331,7 +410,19 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -344,6 +435,16 @@ ALTER TABLE `products`
 --
 ALTER TABLE `rating_review`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`payment_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
