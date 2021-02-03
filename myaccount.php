@@ -342,8 +342,10 @@ if(!isset($_SESSION['email'])){
                                             <th>Product name</th>
                                             <th>Paymode mode</th>                                            
                                             <th>Total</th>                                            
+                                            <th>Invoice</th>                                            
                                         </tr>
                                     </thead>
+
 
                                     <?php 
                                         include('connect.php');
@@ -364,6 +366,7 @@ if(!isset($_SESSION['email'])){
                                             <td><?php echo $products; ?></td>
                                             <td><?php echo $pmode; ?></td>
                                             <td><?php echo $grand_total; ?></td>
+                                            <td><a href="invoice.php?id=<?php echo $id; ?>">download</a></td>
                                         </tr>
                                       <?php } ?>  
                                     </tbody>
@@ -371,6 +374,7 @@ if(!isset($_SESSION['email'])){
                             </div>
                         </div>
                     </div>
+
                     <!-- Single Tab Content End -->
 
                     <!-- Single Tab Content Start -->
