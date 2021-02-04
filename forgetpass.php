@@ -76,7 +76,7 @@ if(isset($_POST['for_pass'])){
             $password = $row['password'];
           
         $message = " Your password is : '".$password."'<br><hr>";           
-        $to = '"'.$email.'"';
+        $to = $email;
         $subject='Password recovery';
         $headers .= 'From: <ascs739@gmail.com>' . "\r\n";
         $headers = "MIME-Version: 1.0" . "\r\n";
