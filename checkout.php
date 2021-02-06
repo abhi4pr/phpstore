@@ -6,7 +6,7 @@ if(!isset($_SESSION['email'])){
 ?>
 
 <?php 
- error_reporting(0);
+ //error_reporting(0);
  include("header.php");
 ?>
 
@@ -28,8 +28,10 @@ if(!isset($_SESSION['email'])){
     $items = array();
 
     $sql = "SELECT CONCAT(name,'(',qty,')') AS ItemQty,total_price from cart WHERE email='".$_SESSION['email']."'";
+    //$sql = "SELECT CONCAT( '[', GROUP_CONCAT(JSON_OBJECT('name', name, 'qty', qty, 'total_price', total_price)), ']' ) FROM cart WHERE email = '".$_SESSION['email']."'";
     $run = mysqli_query($connect,$sql);
-     while($row = mysqli_fetch_assoc($run)){
+    while($row = mysqli_fetch_assoc($run)){
+        print_r($row);
         $grand_total += $row['total_price'];
         $items[] = $row['ItemQty'];
      }
@@ -57,7 +59,6 @@ if(!isset($_SESSION['email'])){
 <!-- product tab start -->
 
 <?php
-include_once 'config.php'; 
  include_once 'connect.php'; 
 ?>
 

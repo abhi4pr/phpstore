@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 04, 2021 at 07:14 AM
+-- Generation Time: Feb 06, 2021 at 05:35 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -164,6 +164,8 @@ INSERT INTO `contact` (`id`, `email`, `name`, `msg`, `cnumber`, `created_at`) VA
 CREATE TABLE `customers` (
   `id` int(11) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `otp` int(11) NOT NULL,
+  `verified` tinyint(1) NOT NULL,
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `number` int(21) NOT NULL,
@@ -175,10 +177,11 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`id`, `email`, `username`, `password`, `number`, `address`, `created_at`) VALUES
-(1, 'ankit@gmail.com', 'ankit dada', 'ankit', 1234567890, 'veshnav dham dewas', '2021-01-21 03:41:24'),
-(2, 'pankaj@gmail.com', 'pankaj', 'pankaj', 2147483647, 'samta nagr indore', '2021-01-21 06:17:01'),
-(3, 'prince@gmail.com', 'prince noob', 'prince', 456213879, 'christian colony south avenue west indies', '2021-01-21 06:17:59');
+INSERT INTO `customers` (`id`, `email`, `otp`, `verified`, `username`, `password`, `number`, `address`, `created_at`) VALUES
+(1, 'ankit@gmail.com', 0, 1, 'ankit dada', 'ankit', 1234567890, 'veshnav dham dewas', '2021-01-21 03:41:24'),
+(3, 'prince@gmail.com', 0, 1, 'prince noob', 'prince', 456213879, 'christian colony south avenue west indies', '2021-01-21 06:17:59'),
+(4, 'demo@gmail.com', 42506, 0, 'demo', 'demo', 214745522, 'demo nagar demo quare', '2021-02-05 16:01:33'),
+(5, 'archanakumarimaurya@gmail.com', 0, 1, 'archana', 'archu', 2147483647, 'addess nagar addy', '2021-02-06 02:34:33');
 
 -- --------------------------------------------------------
 
@@ -405,7 +408,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orders`

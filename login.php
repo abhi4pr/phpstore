@@ -91,21 +91,26 @@ if(isset($_POST['user_log'])){
     $email = mysqli_real_escape_string($connect,$_POST['email']);
     $password = mysqli_real_escape_string($connect,$_POST['password']);
 
-    $admin_query = "SELECT * from customers where email='$email' AND password='$password'";
-
+    $admin_query = "SELECT * from customers where email='$email' AND password='$password' AND verified='0'";
     $run = mysqli_query($connect,$admin_query); 
     
     if(mysqli_num_rows($run)>0){
-    
-    $_SESSION['email'] = $email;
 
-    echo "<script>alert('Successfully You Logged in!')</script>";
-    echo "<script>window.open('myaccount.php','_self')</script>";
+        $ency = bin2hex($email);
+        
+        echo "<script>alert('ur not verified, verify ur email')</script>";
+        echo "<script>window.open('verify_email.php?id=".$ency."','_self')</script>";
     }
-    else {
-    
-    echo "<script>alert('Check your email or password again !')</script>";
-    
+
+    $admin_query1 = "SELECT * from customers where email='$email' AND password='$password' AND verified='1'";
+    $run1 = mysqli_query($connect,$admin_query1); 
+
+    if(mysqli_num_rows($run1)>0){
+        $_SESSION['email'] = $email;
+        echo "<script>alert('Congo, you loggedin succesfully')</script>";
+        echo "<script>window.open('myaccount.php','_self')</script>";    
+    } else {
+        echo "<script>alert('Check email / password !')</script>";
     }
 }
 

@@ -140,15 +140,25 @@
           if(mysqli_num_rows($run) > 0){
             echo "<script>alert('This email allready Exist')</script>";
           }  else {
+
+        $gen_otp=rand(11111,99999);    
         
-        $insert_query = "INSERT into customers (username, email, password, number, address) values ('$username','$email','$password','$number','$address')";
-          }
+        $insert_query = "INSERT into customers (username, email, password, number, address, otp, verified) values ('$username','$email','$password','$number','$address','$gen_otp','0')";
+        
+        $message = " Your email verification OTP is : '".$gen_otp."'<br><hr>";           
+        $to = $email;
+        $subject='Email verification';
+        $headers .= 'From: <ascs739@gmail.com>' . "\r\n";
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        $revate = mail($to,$subject,$message,$headers);
+            $ency = bin2hex($email);
+           }
 
         if(mysqli_query($connect,$insert_query)){
-        
-        echo "<script>alert('Congratulations, You registered !')</script>";
-        //echo "<script>window.open('user/login.php','_self')</script>";
-        
+           echo "<script>alert('Congratulations, You registered !')</script>";
+           echo "<script>window.open('verify_email.php?id=".$ency."','_self')</script>";
         }
     }
 
