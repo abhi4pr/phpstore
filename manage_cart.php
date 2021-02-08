@@ -27,7 +27,7 @@ include 'connect.php';
  		echo "<script>alert('Please Login to add cart !')</script>";
  		echo "<script>location.reload();</script>";
  	} else {
- 		$query = "INSERT into cart(name,price,picture,qty,total_price,email) VALUES('$name','$price','$image','$qty','$price','$email')";
+ 		$query = "INSERT into cart(pid,name,price,picture,qty,total_price,email) VALUES('$id','$name','$price','$image','$qty','$price','$email')";
  		$run = mysqli_query($connect,$query);
  		echo '<div class="alert alert-success alert-dismissible">
 				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -66,22 +66,6 @@ include 'connect.php';
  	$query = "UPDATE cart SET qty='".$qty."',total_price='".$tprice."' WHERE id='".$id."'";
  	$run = mysqli_query($connect,$query);
  	$query2 = "DELETE from cart WHERE name=''";
- 	$run2 = mysqli_query($connect,$query2);
- }
-
-  if(isset($_POST['action']) && isset($_POST['action']) == 'order'){
- 	$username = $_POST['username'];
- 	$email = $_POST['email'];
- 	$number = $_POST['number'];
- 	$address = $_POST['address'];
- 	$pmode = $_POST['pmode'];
- 	$products = $_POST['products'];
- 	$grand_total = $_POST['grand_total'];
-
- 	$query = "INSERT into orders (username,email,number,address,pmode,products,grand_total) VALUES ('$username','$email','$number','$address','$pmode','$products','$grand_total')";
- 	$run = mysqli_query($connect,$query);
-
- 	$query2 = "DELETE from cart WHERE email = '".$_SESSION['email']."'";
  	$run2 = mysqli_query($connect,$query2);
  }
 

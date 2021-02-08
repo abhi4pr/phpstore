@@ -338,10 +338,12 @@ if(!isset($_SESSION['email'])){
                                 <table class="table table-bordered">
                                     <thead class="thead-light">
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Product name</th>
-                                            <th>Paymode mode</th>                                            
-                                            <th>Total</th>                                            
+                                            <th>Order ID</th>
+                                            <th>Product ID</th>
+                                            <th>Quantity</th>                                            
+                                            <th>Price</th>                                            
+                                            <th>Pay mode</th>
+                                            <th>Order date</th>                                            
                                             <th>Invoice</th>                                            
                                         </tr>
                                     </thead>
@@ -349,24 +351,35 @@ if(!isset($_SESSION['email'])){
 
                                     <?php 
                                         include('connect.php');
-                                        $query = "SELECT * from orders WHERE email = '".$_SESSION['email']."'";
+                                        $query = "SELECT orders.*, order_items.* from orders INNER JOIN order_items ON orders.email = order_items.email WHERE orders.email = '".$_SESSION['email']."'";
                                         $result = mysqli_query($connect,$query);
 
                                         while($row=mysqli_fetch_array($result)){
 
-                                          $id = $row['id'];
-                                          $products = $row['products'];
+                                          $orderid = $row['order_id'];
+                                          $productid = $row['product_id'];
+                                          $qty = $row['qty'];
+                                          $price = $row['price']*$qty;
                                           $pmode = $row['pmode'];
-                                          $grand_total = $row['grand_total'];
+                                          $date = $row['order_on'];
                                     ?>  
 
                                     <tbody>
+                                        <?php 
+                                            $ccc = "SELECT name from products WHERE id='".$productid."'";
+                                               $ddd = mysqli_query($connect,$ccc);
+                                                 while($row = mysqli_fetch_assoc($ddd)){
+                                                    $proname = $row["name"];  
+                                               }
+                                        ?>
                                         <tr>
-                                            <td><?php echo $id; ?></td>
-                                            <td><?php echo $products; ?></td>
+                                            <td><?php echo $orderid; ?></td>
+                                            <td><?php echo $proname; ?></td>
+                                            <td><?php echo $qty; ?></td>
+                                            <td><?php echo $price; ?></td>
                                             <td><?php echo $pmode; ?></td>
-                                            <td><?php echo $grand_total; ?></td>
-                                            <td><a href="invoice.php?id=<?php echo $id; ?>">download</a></td>
+                                            <td><?php echo $date; ?></td>
+                                            <td><a href="invoice.php?id=<?php echo $orderid; ?>">download</a></td>
                                         </tr>
                                       <?php } ?>  
                                     </tbody>

@@ -32,41 +32,53 @@
             <table id="orders-listing" class="table table-bordered display">
              <thead>
               <tr>
-               <th>ID</th>
+               <th>Order ID</th>
                <th>Customer email</th>
                <th>Customer number</th> 
                <th>Customer address</th> 
                <th>Payment mode</th> 
                <th>Products</th> 
-               <th>Total amount </th> 
+               <th>Quantity</th>
+               <th>Price </th> 
+               <th>Date</th>
              </tr> 
                </thead> 
                <tbody> 
 
                 <?php 
                     include('../connect.php');
-                    $query = "SELECT * from orders";
+                    $query = "SELECT orders.*, order_items.* from orders INNER JOIN order_items ON orders.email = order_items.email";
                     $result = mysqli_query($connect,$query);
 
                     while($row=mysqli_fetch_array($result)){
 
-                      $id = $row['id'];
+                      $orderid = $row['order_id'];
                       $customer_email = $row['email'];
                       $customer_number = $row['number'];
                       $customer_address = $row['address'];
                       $payment_mode = $row['pmode'];
-                      $products = $row['products'];
-                      $total_amount = $row['grand_total'];
+                      $productid = $row['product_id'];
+                      $qty = $row['qty'];
+                      $price = $row['price']*$qty;
+                      $date = $row['order_on'];
                   ?>  
-
+                <?php 
+                    $ccc = "SELECT name from products WHERE id='".$productid."'";
+                       $ddd = mysqli_query($connect,$ccc);
+                         while($row = mysqli_fetch_assoc($ddd)){
+                            $proname = $row["name"];  
+                       }
+                ?>  
                 <tr> 
-                  <td><?php echo $id; ?></td> 
+                  <td><?php echo $orderid; ?></td> 
                   <td><?php echo $customer_email; ?></td> 
                   <td><?php echo $customer_number; ?></td> 
                   <td><?php echo $customer_address; ?></td> 
                   <td><?php echo $payment_mode; ?></td> 
-                  <td><?php echo $products; ?>"</td>  
-                  <td><?php echo $total_amount; ?></td>  
+                  <td><?php echo $proname; ?></td> 
+                  <td><?php echo $qty; ?></td> 
+                  <td><?php echo $price; ?></td>  
+                  <td><?php echo $date; ?></td>
                 </tr> 
 
                 <?php } ?> 

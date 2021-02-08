@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2021 at 05:35 AM
+-- Generation Time: Feb 08, 2021 at 08:07 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -70,6 +70,7 @@ INSERT INTO `articles` (`id`, `aname`, `adesc`, `apicture`, `created_at`) VALUES
 
 CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `price` int(11) NOT NULL,
   `picture` varchar(250) NOT NULL,
@@ -77,15 +78,6 @@ CREATE TABLE `cart` (
   `total_price` int(11) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `name`, `price`, `picture`, `qty`, `total_price`, `email`) VALUES
-(97, 'carrot', 40, 'ABTB927AAE8502559C1F063BE4DBDAA03376F3D46BA7318CBF0E2307E4693032903.jpg', 2, 80, 'ankit@gmail.com'),
-(103, 'lemon tree', 400, 'ABT66DE284B3E0CA767DA2547D7E26A2A7C7836C931EDBC3723D2D01CA6D1E2DC76.jpg', 1, 400, 'ankit@gmail.com'),
-(105, 'wah', 144, 'rozhok new stopage of enemy.png', 1, 144, 'prince@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -196,7 +188,7 @@ CREATE TABLE `orders` (
   `number` int(21) NOT NULL,
   `address` varchar(100) NOT NULL,
   `pmode` varchar(20) NOT NULL,
-  `products` varchar(250) NOT NULL,
+  `order_on` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6),
   `grand_total` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -204,9 +196,9 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `username`, `email`, `number`, `address`, `pmode`, `products`, `grand_total`) VALUES
-(5, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'netbanking', 'carrot(2), lemon tree(1)', 480),
-(6, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'cod', 'carrot(1), lemon tree(1)', 440);
+INSERT INTO `orders` (`id`, `username`, `email`, `number`, `address`, `pmode`, `order_on`, `grand_total`) VALUES
+(10, 'ankit dada', 'ankit@gmail.com', 1234567890, 'veshnav dham dewas', 'cod', '2021-02-08 05:50:14.018000', 688),
+(11, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'cod', '2021-02-08 07:03:28.127059', 5080);
 
 -- --------------------------------------------------------
 
@@ -216,26 +208,22 @@ INSERT INTO `orders` (`id`, `username`, `email`, `number`, `address`, `pmode`, `
 
 CREATE TABLE `order_items` (
   `id` int(11) NOT NULL,
-  `payment_id` int(11) NOT NULL,
-  `item_number` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `quantity` int(5) NOT NULL,
-  `gross_amount` float(10,2) NOT NULL
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `qty` int(5) NOT NULL,
+  `price` float(10,2) NOT NULL,
+  `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `payments`
+-- Dumping data for table `order_items`
 --
 
-CREATE TABLE `payments` (
-  `payment_id` int(11) NOT NULL,
-  `txn_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `payment_gross` float(10,2) NOT NULL,
-  `currency_code` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
-  `payment_status` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `payer_email` varchar(100) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `qty`, `price`, `email`) VALUES
+(7, 10, 1, 1, 400.00, 'ankit@gmail.com'),
+(8, 10, 9, 2, 144.00, 'ankit@gmail.com'),
+(9, 11, 2, 2, 40.00, 'prince@gmail.com'),
+(10, 11, 3, 1, 5000.00, 'prince@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -343,14 +331,7 @@ ALTER TABLE `orders`
 -- Indexes for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `payment_id` (`payment_id`);
-
---
--- Indexes for table `payments`
---
-ALTER TABLE `payments`
-  ADD PRIMARY KEY (`payment_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `products`
@@ -384,7 +365,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -414,19 +395,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `payments`
---
-ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -439,16 +414,6 @@ ALTER TABLE `products`
 --
 ALTER TABLE `rating_review`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `order_items`
---
-ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`payment_id`) REFERENCES `payments` (`payment_id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

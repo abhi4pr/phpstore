@@ -6,7 +6,7 @@ if(!isset($_SESSION['email'])){
 ?>
 
 <?php 
- //error_reporting(0);
+ error_reporting(0);
  include("header.php");
 ?>
 
@@ -24,18 +24,7 @@ if(!isset($_SESSION['email'])){
     }
     
     $grand_total = 0;
-    $allItems = '';
-    $items = array();
 
-    $sql = "SELECT CONCAT(name,'(',qty,')') AS ItemQty,total_price from cart WHERE email='".$_SESSION['email']."'";
-    //$sql = "SELECT CONCAT( '[', GROUP_CONCAT(JSON_OBJECT('name', name, 'qty', qty, 'total_price', total_price)), ']' ) FROM cart WHERE email = '".$_SESSION['email']."'";
-    $run = mysqli_query($connect,$sql);
-    while($row = mysqli_fetch_assoc($run)){
-        print_r($row);
-        $grand_total += $row['total_price'];
-        $items[] = $row['ItemQty'];
-     }
-     $allItems = implode(", ", $items);
 ?>
 
 <nav class="breadcrumb-section theme1 bg-lighten2 pt-110 pb-110">
@@ -68,12 +57,21 @@ if(!isset($_SESSION['email'])){
             <div class="col-md-6" id="order">
                 <h4 class="text-center text-info" style="margin-bottom:30px;">Complete Your Order !</h4>
                 <div class="jumbotron text-center" style="background-color:#1be1ea; padding:20px;">
-                    <h6 class="lead"><b>Products : </b><?php echo $allItems; ?></h6>
-                    <h6 class="lead"><b>Delivery charge : </b>Free !</h6>
-                    <h6 class="lead"><b>Amount Payable : </b><?php echo $grand_total; ?></h6>
+                    <?php 
+                        $x=0;
+                        $sql = "SELECT * from cart WHERE email='".$_SESSION['email']."'";
+                        $run = mysqli_query($connect,$sql);
+                         while($row = mysqli_fetch_array($run)){
+                            $x++;
+                          echo '<input type="text" name="item_name_'.$x.'" value="'.$row["name"].'">
+                                <input type="text" name="amount_'.$x.'" value="'.$row["price"].'">
+                                <input type="text" name="quantity_'.$x.'" value="'.$row["qty"].'">';  
+                            $grand_total += $row['total_price'];    
+                         }
+                    ?>
                 </div>
                 <form action="" method="POST" id="placeOrder">
-                    <input type="hidden" name="products" value="<?php echo $allItems; ?>">
+                    <!-- <input type="hidden" name="products" value="<?php echo $allItems; ?>"> -->
                     <input type="hidden" name="grand_total" value="<?php echo $grand_total; ?>">
                     <div class="form-group topup" style="margin-top:20px;">
                         <input type="text" name="username" placeholder="Username" value="<?php echo $username; ?>" class="form-control" required="">
@@ -97,7 +95,7 @@ if(!isset($_SESSION['email'])){
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="submit" value="Place order" class="btn btn-danger btn-block">
+                        <input type="submit" name="submitcod" value="Place order" class="btn btn-danger btn-block">
                     </div>
                 </form>
 
@@ -130,23 +128,39 @@ if(!isset($_SESSION['email'])){
 <!-- product tab end -->
 <?php include("footer.php"); ?>
 
-<script type="text/javascript">
-  $(document).ready(function() {
+<?php
+  include('connect.php');
 
-    $("#placeOrder").submit(function(e){
-        e.preventDefault();
-        $.ajax({
-            url: 'manage_cart.php',
-            method: 'POST',
-            data: $("form").serialize() + "&action=order",
-            success: function(response){
-               alert('Ordered Successfully !');
-               window.location.replace("http://localhost/phpstore/myaccount.php");
-            }
-        });
-    });
+  if(isset($_POST['submitcod'])){
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $number = $_POST['number'];
+    $address = $_POST['address'];
+    $pmode = $_POST['pmode'];
+    $grand_total = $_POST['grand_total'];
 
-  });
-</script>
+    $query = "INSERT into orders (username,email,number,address,pmode,grand_total) VALUES ('$username','$email','$number','$address','$pmode','$grand_total')";
+    $run = mysqli_query($connect,$query);
+
+    $order_id = mysqli_insert_id($connect);
+
+    $sql = "SELECT * from cart WHERE email='".$_SESSION['email']."'";
+    $run = mysqli_query($connect,$sql);
+     while($row = mysqli_fetch_array($run)){
+      $pid = $row["pid"];  
+      $qty = $row["qty"];
+      $price = $row["price"];
+
+      $query3 = "INSERT into order_items (order_id,product_id,qty,price,email) values ('$order_id','$pid','$qty','$price','$email')";
+      $run3 = mysqli_query($connect,$query3);
+    }
+
+    $query2 = "DELETE from cart WHERE email = '".$_SESSION['email']."'";
+    $run2 = mysqli_query($connect,$query2);
+
+    echo "<script>alert('Ordered successfully')</script>";
+    echo "<script>window.open('myaccount.php','_self')</script>";    
+  }
+?>
 
 <?php } ?>
