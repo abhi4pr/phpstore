@@ -16,24 +16,33 @@
                     <th>Quantity</th>                                            
                     <th>Price</th>                                            
                     <th>Pay mode</th>
-                    <th>Order date</th>                                          
+                    <th>Order date</th>  
+                    <th>Grand Total</th>                                        
                 </tr>
             </thead>
             <tbody>';
             $query = "SELECT * from order_items WHERE email = '".$_SESSION['email']."' AND order_id = '".$order_id."'";
+            $grand_total = 0;
                 $result = mysqli_query($connect,$query);
-                    while($row=mysqli_fetch_assoc($result)){
+                    while($row=mysqli_fetch_array($result)){
+                        $productid = $row['product_id'];
+
+                $ccc = "SELECT name from products WHERE id='".$productid."'";
+                   $ddd = mysqli_query($connect,$ccc);
+                     while($row1 = mysqli_fetch_assoc($ddd)){
+                        $proname = $row1["name"];  
+                   }        
 
                 $html.='<tr>
                     <td>'.$row['order_id'].'</td>
-                    <td>'.$row['product_id'].'</td>
+                    <td>'.$proname.'</td>
                     <td>'.$row['qty'].'</td>
                     <td>'.$row['price'].'</td>
                     <td>'.$row['pmode'].'</td>
                     <td>'.$row['order_on'].'</td>
+                    <td>'.$row['grand_total'].'</td>
                 </tr>';
-                    }
-            $html.='<tr></tr>';        
+                    }       
             $html.='</tbody>
         </table>
     </div>';

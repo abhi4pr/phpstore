@@ -151,7 +151,7 @@ if(!isset($_SESSION['email'])){
       $qty = $row["qty"];
       $price = $row["price"];
 
-      $query3 = "INSERT into order_items (order_id,product_id,qty,price,pmode,email) values ('$order_id','$pid','$qty','$price','$pmode','$email')";
+      $query3 = "INSERT into order_items (order_id,product_id,qty,price,pmode,email,$grand_total) values ('$order_id','$pid','$qty','$price','$pmode','$email','$grand_total')";
       $run3 = mysqli_query($connect,$query3);
     }
 

@@ -413,7 +413,7 @@ if(!isset($_SESSION['email'])){
                                         </div>
 
                                         <div class="col-12 mb-30">
-                                            <input type="number" name="number" value="<?php echo $number?>" placeholder="Number">
+                                            <input type="number" name="number" value="<?php echo $number; ?>" placeholder="Number">
                                         </div>
 
                                         <div class="col-12 mb-30">
