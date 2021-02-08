@@ -264,7 +264,7 @@ if(!isset($_SESSION['email'])){
             <div class="col-12">
                 <ol class="breadcrumb bg-transparent m-0 p-0 align-items-center justify-content-center">
                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">my account</li>
+                    <li class="breadcrumb-item active" aria-current="page">Order details</li>
                 </ol>
             </div>
         </div>
@@ -282,16 +282,8 @@ if(!isset($_SESSION['email'])){
             <!-- My Account Tab Menu Start -->
             <div class="col-lg-3 col-12 mb-30">
                 <div class="myaccount-tab-menu nav" role="tablist">
-                    <a href="#dashboad" data-toggle="tab" class="active"><i class="fas fa-tachometer-alt"></i>
-                        Dashboard</a>
-
-                    <a href="#orders" data-toggle="tab"><i class="fa fa-cart-arrow-down"></i>
-                        Orders</a>
-
-                    <a href="#account-info" data-toggle="tab"><i class="fa fa-user"></i> Account
-                        Details</a>
-
-                    <a href="logout.php"><i class="fa fa-sign-out"></i> Logout</a>
+                    <a href="#or_details" data-toggle="tab" class="active"><i class="fas fa-tachometer-alt"></i>
+                        Order details</a>
                 </div>
             </div>
             <!-- My Account Tab Menu End -->
@@ -300,39 +292,9 @@ if(!isset($_SESSION['email'])){
             <div class="col-lg-9 col-12 mb-30">
                 <div class="tab-content" id="myaccountContent">
                     <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade active show" id="dashboad" role="tabpanel">
+                    <div class="tab-pane fade active show" id="or_details" role="tabpanel">
                         <div class="myaccount-content">
-                            <h3>Dashboard</h3>
-
-                            <?php 
-                                include('connect.php');
-                                $query = "SELECT * from customers WHERE email = '".$_SESSION['email']."'";
-                                $run = mysqli_query($connect,$query);
-                                 while($row = mysqli_fetch_assoc($run)){
-                                    $id = $row['id'];
-                                    $username = $row['username'];
-                                    $email = $row['email'];
-                                    $password = $row['password'];
-                                    $number = $row['number'];
-                                    $address = $row['address'];
-                                 }
-                            ?>
-
-                            <div class="welcome mb-20">
-                                <p>Hello, <strong><?php echo $username; ?></strong> </strong></p>
-                            </div>
-
-                            <p class="mb-0">From your account dashboard. you can easily check &amp; view your
-                                recent orders, manage your shipping and billing addresses and edit your
-                                password and account details.</p>
-                        </div>
-                    </div>
-                    <!-- Single Tab Content End -->
-
-                    <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade" id="orders" role="tabpanel">
-                        <div class="myaccount-content">
-                            <h3>Orders</h3>
+                            <h3>Order details</h3>
 
                             <div class="myaccount-table table-responsive text-center">
                                 <table class="table table-bordered">
@@ -343,16 +305,16 @@ if(!isset($_SESSION['email'])){
                                             <th>Quantity</th>                                            
                                             <th>Price</th>                                            
                                             <th>Pay mode</th>
-                                            <th>Order date</th>                                            
-                                            <th>Detail</th>
-                                            <th>Invoice</th>                                            
+                                            <th>Order date</th>                                         
                                         </tr>
                                     </thead>
 
 
                                     <?php 
                                         include('connect.php');
-                                        $query = "SELECT * from order_items WHERE email = '".$_SESSION['email']."'";
+                                        $order_id = $_GET['order_id'];
+
+                                        $query = "SELECT * from order_items WHERE email = '".$_SESSION['email']."' AND order_id = '".$order_id."'";
                                         $result = mysqli_query($connect,$query);
 
                                         while($row=mysqli_fetch_array($result)){
@@ -380,56 +342,16 @@ if(!isset($_SESSION['email'])){
                                             <td><?php echo $price; ?></td>
                                             <td><?php echo $pmode; ?></td>
                                             <td><?php echo $date; ?></td>
-                                            <td><a href="order_detail.php?order_id=<?php echo $orderid; ?>">Details</a></td>
-                                            <td><a href="invoice.php?order_id=<?php echo $orderid; ?>">Download</a></td>
                                         </tr>
                                       <?php } ?>  
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- Single Tab Content End -->
-
-                    <!-- Single Tab Content Start -->
-                    <div class="tab-pane fade" id="account-info" role="tabpanel">
-                        <div class="myaccount-content">
-                            <h3>Account Details</h3>
-
-                            <div class="account-details-form">
-                                <form action="" method="POST">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-12 mb-30">
-                                            <input type="text" name="username" value="<?php echo $username; ?>" placeholder="User Name">
-                                        </div>
-
-                                        <div class="col-lg-6 col-12 mb-30">
-                                            <input type="text" name="email" value="<?php echo $email; ?>" placeholder="Email">
-                                        </div>
-
-                                        <div class="col-12 mb-30">
-                                            <input type="text" name="password" value="<?php echo $password; ?>" placeholder="Password">
-                                        </div>
-
-                                        <div class="col-12 mb-30">
-                                            <input type="number" name="number" value="<?php echo $number?>" placeholder="Number">
-                                        </div>
-
-                                        <div class="col-12 mb-30">
-                                            <input type="text" name="address" value="<?php echo $address; ?>" placeholder="Address">
-                                        </div>
-
-                                        <div class="col-12">
-                                            <input type="submit" name="prof_user" value="Update" class="btn theme-btn--dark1 btn--md">
-                                        </div>
-
-                                    </div>
-                                </form>
-                            </div>
                         </div>
                     </div>
                     <!-- Single Tab Content End -->
+
                 </div>
             </div>
             <!-- My Account Tab Content End -->
@@ -440,25 +362,3 @@ if(!isset($_SESSION['email'])){
 <?php include("footer.php"); ?>
 
 <?php } ?>
-
- <?php 
-
-      include('connect.php');
-      if(isset($_POST['prof_user'])){
-     
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $number = $_POST['number'];
-        $address= $_POST['address'];
-        
-        $update_query = "UPDATE customers set username='".$username."',email='".$email."',password='".$password."',number='".$number."',address='".$address."' WHERE email='".$_SESSION['email']."'";
-
-        if(mysqli_query($connect,$update_query)){
-      
-          echo "<script>alert('Your profile updated !')</script>";
-          echo "<script>window.open('myaccount.php','_self')</script>";
-          
-        }        
-      }
-  ?>

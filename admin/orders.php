@@ -47,21 +47,28 @@
 
                 <?php 
                     include('../connect.php');
-                    $query = "SELECT orders.*, order_items.* from orders INNER JOIN order_items ON orders.email = order_items.email";
+                    $query = "SELECT * from order_items";
                     $result = mysqli_query($connect,$query);
 
                     while($row=mysqli_fetch_array($result)){
 
                       $orderid = $row['order_id'];
                       $customer_email = $row['email'];
-                      $customer_number = $row['number'];
-                      $customer_address = $row['address'];
                       $payment_mode = $row['pmode'];
                       $productid = $row['product_id'];
                       $qty = $row['qty'];
                       $price = $row['price']*$qty;
                       $date = $row['order_on'];
-                  ?>  
+                  ?> 
+                <?php 
+                    $eee = "SELECT * from customers WHERE email='".$customer_email."'";
+                       $fff = mysqli_query($connect,$eee);
+                         while($row = mysqli_fetch_assoc($fff)){
+                            $customer_number = $row["number"];  
+                            $customer_address = $row["address"];  
+                       }
+                ?>  
+
                 <?php 
                     $ccc = "SELECT name from products WHERE id='".$productid."'";
                        $ddd = mysqli_query($connect,$ccc);

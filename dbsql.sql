@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2021 at 08:07 AM
+-- Generation Time: Feb 08, 2021 at 11:43 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -198,7 +198,8 @@ CREATE TABLE `orders` (
 
 INSERT INTO `orders` (`id`, `username`, `email`, `number`, `address`, `pmode`, `order_on`, `grand_total`) VALUES
 (10, 'ankit dada', 'ankit@gmail.com', 1234567890, 'veshnav dham dewas', 'cod', '2021-02-08 05:50:14.018000', 688),
-(11, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'cod', '2021-02-08 07:03:28.127059', 5080);
+(11, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'cod', '2021-02-08 07:03:28.127059', 5080),
+(12, 'ankit dada', 'ankit@gmail.com', 1234567890, 'veshnav dham dewas', 'netbanking', '2021-02-08 08:36:04.832980', 5000);
 
 -- --------------------------------------------------------
 
@@ -212,6 +213,8 @@ CREATE TABLE `order_items` (
   `product_id` int(11) NOT NULL,
   `qty` int(5) NOT NULL,
   `price` float(10,2) NOT NULL,
+  `pmode` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `order_on` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -219,11 +222,12 @@ CREATE TABLE `order_items` (
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `qty`, `price`, `email`) VALUES
-(7, 10, 1, 1, 400.00, 'ankit@gmail.com'),
-(8, 10, 9, 2, 144.00, 'ankit@gmail.com'),
-(9, 11, 2, 2, 40.00, 'prince@gmail.com'),
-(10, 11, 3, 1, 5000.00, 'prince@gmail.com');
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `qty`, `price`, `pmode`, `order_on`, `email`) VALUES
+(7, 10, 1, 1, 400.00, 'cod', '2021-02-08 10:32:53', 'ankit@gmail.com'),
+(8, 10, 9, 2, 144.00, 'cod', '2021-02-08 05:50:14', 'ankit@gmail.com'),
+(9, 11, 2, 2, 40.00, 'cod', '2021-02-08 07:03:28', 'prince@gmail.com'),
+(10, 11, 3, 1, 5000.00, 'cod', '2021-02-08 07:03:28', 'prince@gmail.com'),
+(11, 12, 3, 1, 5000.00, 'netbanking', '2021-02-08 10:31:34', 'ankit@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -365,7 +369,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -395,13 +399,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `products`
