@@ -95,9 +95,11 @@ if(!isset($_SESSION['email'])){
                         </select>
                     </div>
                     <div class="form-group">
-                        <input type="submit" name="submitcod" value="Place order" class="btn btn-danger btn-block">
+                        <input type="submit" name="submitcod" value="Place order (COD)" class="btn btn-danger btn-block">
                     </div>
                 </form>
+
+                <a href="pay1.php" class="btn btn-success btn-block" style="margin-bottom:20px;">Pay by Payumoney</a>
 
                 <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
                     <input type="hidden" name="business" value="abhibusiness@gmail.com">
@@ -118,7 +120,7 @@ if(!isset($_SESSION['email'])){
                     <input type="hidden" name="currency_code" value="USD">
                     <input type="hidden" name="return" value="http://localhost/phpstore/success.php">
                     <input type="hidden" name="cancel_return" value="http://localhost/phpstore/cancel.php">
-                    <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynow_LG.gif">
+                    <input type="image" name="submit" border="0" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png">
                 </form>
             
             </div>
@@ -151,7 +153,7 @@ if(!isset($_SESSION['email'])){
       $qty = $row["qty"];
       $price = $row["price"];
 
-      $query3 = "INSERT into order_items (order_id,product_id,qty,price,pmode,email,$grand_total) values ('$order_id','$pid','$qty','$price','$pmode','$email','$grand_total')";
+      $query3 = "INSERT into order_items (order_id,product_id,qty,price,pmode,email,grand_total) values ('$order_id','$pid','$qty','$price','$pmode','$email','$grand_total')";
       $run3 = mysqli_query($connect,$query3);
     }
 
