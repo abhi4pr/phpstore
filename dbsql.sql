@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 08, 2021 at 11:43 AM
+-- Generation Time: Feb 10, 2021 at 10:36 AM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -78,6 +78,13 @@ CREATE TABLE `cart` (
   `total_price` int(11) NOT NULL,
   `email` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `pid`, `name`, `price`, `picture`, `qty`, `total_price`, `email`) VALUES
+(128, 1, 'lemon tree', 400, 'ABT66DE284B3E0CA767DA2547D7E26A2A7C7836C931EDBC3723D2D01CA6D1E2DC76.jpg', 1, 400, 'ankit@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -199,7 +206,9 @@ CREATE TABLE `orders` (
 INSERT INTO `orders` (`id`, `username`, `email`, `number`, `address`, `pmode`, `order_on`, `grand_total`) VALUES
 (10, 'ankit dada', 'ankit@gmail.com', 1234567890, 'veshnav dham dewas', 'cod', '2021-02-08 05:50:14.018000', 688),
 (11, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'cod', '2021-02-08 07:03:28.127059', 5080),
-(12, 'ankit dada', 'ankit@gmail.com', 1234567890, 'veshnav dham dewas', 'netbanking', '2021-02-08 08:36:04.832980', 5000);
+(12, 'ankit dada', 'ankit@gmail.com', 1234567890, 'veshnav dham dewas', 'netbanking', '2021-02-08 08:36:04.832980', 5000),
+(17, 'prince noob', 'prince@gmail.com', 456213879, 'christian colony south avenue west indies', 'Payumoney', '2021-02-10 08:54:34.457991', 480),
+(18, 'ankit dada', 'ankit@gmail.com', 1234567890, 'veshnav dham dewas', 'Payumoney', '2021-02-10 09:00:08.683568', 5144);
 
 -- --------------------------------------------------------
 
@@ -215,19 +224,24 @@ CREATE TABLE `order_items` (
   `price` float(10,2) NOT NULL,
   `pmode` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `order_on` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL
+  `email` varchar(70) COLLATE utf8_unicode_ci NOT NULL,
+  `grand_total` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `order_items`
 --
 
-INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `qty`, `price`, `pmode`, `order_on`, `email`) VALUES
-(7, 10, 1, 1, 400.00, 'cod', '2021-02-08 10:32:53', 'ankit@gmail.com'),
-(8, 10, 9, 2, 144.00, 'cod', '2021-02-08 05:50:14', 'ankit@gmail.com'),
-(9, 11, 2, 2, 40.00, 'cod', '2021-02-08 07:03:28', 'prince@gmail.com'),
-(10, 11, 3, 1, 5000.00, 'cod', '2021-02-08 07:03:28', 'prince@gmail.com'),
-(11, 12, 3, 1, 5000.00, 'netbanking', '2021-02-08 10:31:34', 'ankit@gmail.com');
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `qty`, `price`, `pmode`, `order_on`, `email`, `grand_total`) VALUES
+(7, 10, 1, 1, 400.00, 'cod', '2021-02-08 10:59:07', 'ankit@gmail.com', 688),
+(8, 10, 9, 2, 144.00, 'cod', '2021-02-08 10:59:14', 'ankit@gmail.com', 688),
+(9, 11, 2, 2, 40.00, 'cod', '2021-02-08 10:59:25', 'prince@gmail.com', 5080),
+(10, 11, 3, 1, 5000.00, 'cod', '2021-02-08 10:59:33', 'prince@gmail.com', 5080),
+(11, 12, 3, 1, 5000.00, 'netbanking', '2021-02-08 10:59:40', 'ankit@gmail.com', 5000),
+(18, 17, 2, 2, 40.00, 'Payumoney', '2021-02-10 08:54:34', 'prince@gmail.com', 480),
+(19, 17, 1, 1, 400.00, 'Payumoney', '2021-02-10 08:54:34', 'prince@gmail.com', 480),
+(20, 18, 9, 1, 144.00, 'Payumoney', '2021-02-10 09:00:08', 'ankit@gmail.com', 5144),
+(21, 18, 3, 1, 5000.00, 'Payumoney', '2021-02-10 09:00:08', 'ankit@gmail.com', 5144);
 
 -- --------------------------------------------------------
 
@@ -369,7 +383,7 @@ ALTER TABLE `articles`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -399,13 +413,13 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `products`
