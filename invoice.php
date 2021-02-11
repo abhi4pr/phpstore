@@ -17,7 +17,7 @@
                     <th>Price</th>                                            
                     <th>Pay mode</th>
                     <th>Order date</th>  
-                    <th>Grand Total</th>                                        
+                                                            
                 </tr>
             </thead>
             <tbody>';
@@ -26,6 +26,7 @@
                 $result = mysqli_query($connect,$query);
                     while($row=mysqli_fetch_array($result)){
                         $productid = $row['product_id'];
+                         $grand_total = $row['grand_total'];
 
                 $ccc = "SELECT name from products WHERE id='".$productid."'";
                    $ddd = mysqli_query($connect,$ccc);
@@ -37,12 +38,13 @@
                     <td>'.$row['order_id'].'</td>
                     <td>'.$proname.'</td>
                     <td>'.$row['qty'].'</td>
-                    <td>'.$row['price'].'</td>
+                    <td>'.$row['price']*$row['qty'].'</td>
                     <td>'.$row['pmode'].'</td>
                     <td>'.$row['order_on'].'</td>
-                    <td>'.$row['grand_total'].'</td>
+                    
                 </tr>';
-                    }       
+                    }
+            $html.='<tr> <td>Grand total is:- '.$grand_total.'</td></tr>';              
             $html.='</tbody>
         </table>
     </div>';
